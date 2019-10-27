@@ -1,0 +1,28 @@
+		.mytitle {
+			color:gray;
+			font-weight: 600
+		}
+		.small-font {
+			font-size:50px;
+		}
+		.main {
+			width: 100px;
+			margin: 0 auto;
+			padding: 100px;
+		}
+		body {
+ 			background-image: url("https://i.stack.imgur.com/spmUM.gif");
+		}
+		a {
+			text-decoration:none;
+			color: #010101;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+		h1:hover {
+			color: green;
+		}
+		* {
+			font-family: 'Stylish', sans-serif;
+		}

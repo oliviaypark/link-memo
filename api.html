@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>Hello, world!</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<!-- 구글폰트 -->
+	<link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+	<!-- style -->
+	<style type="text/css">
+		* {
+			font-family: 'Nanum Myeongjo', sans-serif;
+		}
+		.wrap {
+			width: 900px;
+			height: 500px;
+			margin: auto;
+		}
+		.card-deck {
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		.comment {
+			color: blue;
+			font-weight: bold;
+		}
+		.jumbotron {
+			padding: 10px 50px;
+			margin: 10px;
+		}
+		.text-muted {
+			color: green !important;
+		}
+		.posting-box {
+			margin: 30px auto;
+			padding: 20px;
+			width:50%;
+			border:3px solid lightgray;
+		}
+	</style>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+	<script>
+
+		let num = 0;
+		function hey(){
+    		let url = $('#article-url').val();
+			let comment = $('#comment').val();
+			let author = 'yoonhee';
+
+			console.log(url);
+			console.log(comment);
+
+			$.ajax({
+			  type: "POST",
+			  url: "http://spartacodingclub.shop/post",
+			  data: { url_give:url, comment_give:comment, author_give:author },
+			  success: function(response){
+					alert('It is saved');
+			  }
+			})
+    	}
+		
+
+		function togglePostingBox(){
+			if($('#posting-box').css('display')=='none'){
+				$('#posting-box').show();
+				$('#btn-posting-box').text('CLOSE')
+			}else{
+				$('#posting-box').hide();
+				$('#btn-posting-box').text('OPEN')
+			}	
+		}
+
+		function listing(){
+			let author='yoonhee';
+			$.ajax({
+			  type: "GET",
+			  url: "http://spartacodingclub.shop/post",
+			  data: {author_give:author},
+			  success: function(response){
+			  	let articles = response['articles'];
+			  	for (let i = 0; i < articles.length; i++) {
+			  		let card = `
+			  		<div class="card">
+						<img class="card-img-top" src="${articles[i]['image']}" alt="Card image cap">
+						<div class="card-body">
+							<h5 class="card-title">${articles[i]['title']}</h5>
+							<p class="card-text">${articles[i]['desc']}</p>
+							<p class="card-text comment">${articles[i]['comment']}</p>
+						</div>
+					</div>
+			  		`;
+			  		$('#card-columns').append(card);
+			  	}
+			  }
+			})
+		}
+
+		$(document).ready(function(){
+			listing();
+		});
+
+	</script>
+
+
+
+
+</head>
+<body>
+	<div class="wrap">
+	<div class="jumbotron">
+  		<h1 class="display-4">Favorite link note</h1>
+  		<p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+	 	<hr class="my-4">
+  		<p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+ 		<p class="lead">
+    	<a class="btn btn-primary btn-lg" href="#" onclick=togglePostingBox() role="button" id="btn-posting-box">Open the box</a>
+  		</p>
+	</div>
+
+	<div class="posting-box" id="posting-box">
+	<label for="basic-url">Article URL</label>
+	<div class="input-group mb-3">
+	  <div class="input-group-prepend">
+	    <span class="input-group-text" id="basic-addon3">https://</span>
+	  </div>
+	  <input type="text" class="form-control" id="article-url" aria-describedby="basic-addon3">
+	</div>
+
+	<div class="input-group">
+	  <div class="input-group-prepend">
+	    <span class="input-group-text">Comment</span>
+	  </div>
+	  <textarea class="form-control" aria-label="With textarea" id="comment"></textarea>
+	</div>
+	<br>
+	  <button type="button" class="btn btn-success" onclick="hey()">Post</button>
+	</div>
+
+
+
+	<div class="card-columns" id="card-columns">
+	  <div class="card">
+	    <img class="card-img-top" src="https://www.onlinemarketplaces.com/ext/resources/-1GOMS/Jobs/Misc/google-building.png?1545613883" alt="Card image cap">
+	    <div class="card-body">
+	      <h5 class="card-title">Card title</h5>
+	      <p class="card-text">summary</p>
+	      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+	    </div>
+	  </div>
+	 
+	</div>
+
+
+</body>
+</html>

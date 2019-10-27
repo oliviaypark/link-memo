@@ -1,0 +1,25 @@
+fuction sum(n){
+	result=0;
+	for(let i=n-1; i>=0; i=i-1){
+	result +=i;
+	}
+	return result;
+}
+
+sum(10)
+
+--!--
+	for(let i=n-1; i>=0; i=i-1){
+	console.log(i);
+	}
+
+
+===========
+raw_data=pm['RealtimeCityAir']['row']
+for (I=0; I<raw_data.length;i++){
+     If (raw_data[I]['MSRSTE_NM']=='도봉구'){
+	console.log(raw_data[I]["IDEX_MVL"]);
+    }
+}
+===========
+
